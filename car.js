@@ -5,6 +5,7 @@ class Car {
         this.width = width;
         this.height = height;
 
+        this.sensor = new Sensor(this)
         this.speed=0;
         this.acceleration=0.2;
         this.maxSpeed =3;
@@ -73,9 +74,12 @@ class Car {
         )
         ctx.fill();
         ctx.restore(); //must restore otherwise translate and rotate infinitely
+
+        this.sensor.draw(ctx)
     }
 
-    update(){
+    update(roadBorders){
         this.#move()
+        this.sensor.update(roadBorders)
     }
 }
