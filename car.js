@@ -13,22 +13,7 @@ class Car {
         this.controls = new Controls()
     }
 
-    draw(ctx) {
-        ctx.save();
-        ctx.translate(this.x, this.y); //translate based on where we want ctx centered at
-        ctx.rotate(-this.angle);
-        ctx.beginPath();
-        ctx.rect(
-            -this.width/2, //x is gonna be center
-            -this.height/2,
-            this.width,
-            this.height
-        )
-        ctx.fill();
-        ctx.restore(); //must restore otherwise translate and rotate infinitely
-    }
-
-    update(){
+    #move(){
         if (this.controls.forward) {
             this.speed += this.acceleration;
         }
@@ -73,5 +58,24 @@ class Car {
         //using the unit circle, radius of 1, sin is between -1 and 1
         this.x -= Math.sin(this.angle)*this.speed;
         this.y -= Math.cos(this.angle)*this.speed;
+    }
+
+    draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y); //translate based on where we want ctx centered at
+        ctx.rotate(-this.angle);
+        ctx.beginPath();
+        ctx.rect(
+            -this.width/2, //x is gonna be center
+            -this.height/2,
+            this.width,
+            this.height
+        )
+        ctx.fill();
+        ctx.restore(); //must restore otherwise translate and rotate infinitely
+    }
+
+    update(){
+        this.#move()
     }
 }
